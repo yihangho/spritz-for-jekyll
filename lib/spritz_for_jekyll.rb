@@ -2,11 +2,12 @@ module Spritz
   class Generator < Jekyll::Generator
     def generate(site)
       return if site.config["spritz_client_id"].nil?
+      return unless site.config["spritz_auto_mode"].nil? or site.config["spritz_auto_mode"]
 
       puts "url should be defined in order for Spritz to work." if site.config["url"].nil?
 
       client_id = site.config["spritz_client_id"]
-      base_url = site.config["url"]
+      base_url  = site.config["url"]
 
       snippet = <<HEREDOC
 <script>
