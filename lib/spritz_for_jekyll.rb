@@ -46,7 +46,6 @@ HEREDOC
   };
 </script>
 <script id="spritzjs" type="text/javascript" src="//sdk.spritzinc.com/js/1.0/js/spritz.min.js"></script>
-<p><div data-role="spritzer"></div></p>
 HEREDOC
     end
 
@@ -60,6 +59,13 @@ HEREDOC
       end
     end
   end
+
+  class SpritzRedicleTag < Liquid::Tag
+    def render(context)
+      "<p><div data-role=\"spritzer\"></div></p>"
+    end
+  end
 end
 
 Liquid::Template.register_tag('spritz_scripts', Spritz::SpritzScriptTag)
+Liquid::Template.register_tag('spritz_redicle', Spritz::SpritzRedicleTag)
