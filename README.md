@@ -3,6 +3,7 @@ This is a plugin for Jekyll that attempts to simplify the process of using [Spri
 
 ## Prerequisites
 1. You need a client ID issued by Spritz. [Register here](http://www.spritzinc.com/developers/) to get one.
+2. Download this file `https://sdk.spritzinc.com/js/1.0/examples/login_success.html` as `login_success.html` and put it in your Jekyll project root.
 
 ## Installation
 1. Install this gem:
@@ -19,7 +20,8 @@ This is a plugin for Jekyll that attempts to simplify the process of using [Spri
 Configuration at the global level can be done in your Jekyll configuration file, most likely it is `_config.yml`. Currently, the following are supported:
 
 1. `spritz_client_id` (required): The client ID issued by Spritz:
-2. `spritz_auto_mode` (optional, defaults to `true`): This can field can be either `true` or `false`. When it is set to true, necessary scripts and tags will be added to the beginning of each posts. If you wish to customize the location of Spritz (called Redicle), set this field to `false` and refer to the section below, `Liquid Tags`.
+2. `url` (required): The base URL of your Jekyll site _without_ the final forward slash:
+3. `spritz_auto_mode` (optional, defaults to `true`): This can field can be either `true` or `false`. When it is set to true, necessary scripts and tags will be added to the beginning of each posts. If you wish to customize the location of Spritz (called Redicle), set this field to `false` and refer to the section below, `Liquid Tags`.
 
 ### Local configuration
 In posts that you don't want Spritz to be enabled, set `spritz` to `false` in their front-matter:
