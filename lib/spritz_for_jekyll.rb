@@ -4,10 +4,7 @@ module Spritz
       return if site.config["spritz_client_id"].nil?
       return unless site.config["spritz_auto_mode"].nil? or site.config["spritz_auto_mode"]
 
-      puts "url should be defined in order for Spritz to work." if site.config["url"].nil?
-
       client_id = site.config["spritz_client_id"]
-      base_url  = site.config["url"]
 
       snippet = <<HEREDOC
 <script>
@@ -33,10 +30,8 @@ HEREDOC
       return if site.nil?
 
       client_id = site["spritz_client_id"]
-      base_url  = site["url"]
 
       return if client_id.nil?
-      puts "url should be defined in order for Spritz to work." if base_url.nil?
 
       snippet = <<HEREDOC
 <script>
