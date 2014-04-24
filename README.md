@@ -18,6 +18,7 @@ This is a plugin for Jekyll that attempts to simplify the process of using [Spri
   ```yaml
   include: [..., "login_success.html"]
   ```
+
 ## Configuration
 ### Global configuration
 Configuration at the global level can be done in your Jekyll configuration file, most likely it is `_config.yml`. Currently, the following are supported:
