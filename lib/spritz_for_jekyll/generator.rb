@@ -40,8 +40,13 @@ module Spritz
       end
 
       if @options[:url].nil?
-        puts" Spritz for Jekyll: You need to set your URL!"
-        @options[:url] = "http://www.example.com"
+        puts "Spritz for Jekyll: URL not set. Will guess on client side."
+      elsif not /^https?:\/\//i =~ @options[:url]
+        puts "Spritz for Jekyll: URL should include protocols like http:// or https://. I will unset it and guess on client side."
+        @options[:url] = nil
+      elsif /\/$/ =~ @options[:url]
+        puts "Spritz for Jekyll: URL should not end with forward slash, /. I will unset it and guess on client side."
+        @options[:url] = nil
       end
 
       if @options[:login_success].nil?

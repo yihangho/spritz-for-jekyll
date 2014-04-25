@@ -7,6 +7,9 @@ module Spritz
           clientId: \"#{client_id}\",
           redirectUri: \"#{base_url}/#{login_success}\"
         };
+        if (!(/^https?:\\/\\//i.test(SpritzSettings.redirectUri))) {
+          SpritzSettings.redirectUri = window.location.protocol + "//" + window.location.host + SpritzSettings.redirectUri;
+        }
       </script>
       <script id=\"spritzjs\" type=\"text/javascript\" src=\"//sdk.spritzinc.com/js/1.0/js/spritz.min.js\"></script>
     HEREDOC
