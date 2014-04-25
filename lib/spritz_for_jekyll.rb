@@ -17,6 +17,13 @@ module Spritz
       client_id = site.config["spritz_client_id"]
       base_url  = site.config["url"]
       login_success_name = site.config["spritz_login_success_name"] || "login_success.html"
+      selector  = site.config["spritz_selector"] || nil
+
+      if selector
+        attribute = "data-role=\"spritzer\" data-selector=\"#{selector}\""
+      else
+        attribute = "data-role=\"spritzer\""
+      end
 
       snippet = <<HEREDOC
 <script>
@@ -27,7 +34,7 @@ module Spritz
   };
 </script>
 <script id="spritzjs" type="text/javascript" src="//sdk.spritzinc.com/js/1.0/js/spritz.min.js"></script>
-<p><div data-role="spritzer"></div></p>
+<p><div #{attribute}></div></p>
 HEREDOC
 
       site.posts.each do |p|
@@ -73,7 +80,24 @@ HEREDOC
 
   class SpritzRedicleTag < Liquid::Tag
     def render(context)
-      "<p><div data-role=\"spritzer\"></div></p>"
+      site = get_site(context.environments)
+      selector = site["spritz_selector"]
+
+      if selector
+        "<p><div data-role=\"spritzer\" data-selector=\"#{selector}\"></div></p>"
+      else
+        "<p><div data-role=\"spritzer\"></div></p>"
+      end
+    end
+
+    private
+
+    def get_site(environments)
+      environments.each do |e|
+        if e.has_key?("site")
+          return e["site"]
+        end
+      end
     end
   end
 end
