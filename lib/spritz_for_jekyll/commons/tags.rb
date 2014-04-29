@@ -21,6 +21,11 @@ module Spritz
 
     def sanitize_options(config)
       return unless config["url"]
+
+      if config[config["url"]]
+        config["url"] = config[config["url"]]
+      end
+
       unless /https?:\/\// =~ config["url"]
         config["url"] = "http://" + config["url"]
         puts "Spritz for Jekyll: URL does not contain protocol. We will use HTTP by default."
