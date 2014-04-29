@@ -2,9 +2,13 @@ module Spritz
   class Generator < Jekyll::Generator
     def initialize(*args)
       super
-      login_success_name = args[0]["spritz_login_success_name"] || "login_success.html"
+      login_success_path = args[0]["spritz_login_success_name"] || "login_success.html"
+      dirname = File.dirname(login_success_path)
+
+      FileUtils.mkdir_p(dirname)
+
       source = File.join(File.dirname(__FILE__), "..", "login_success.html")
-      destination = File.join(args[0]["source"], login_success_name)
+      destination = File.join(args[0]["source"], login_success_path)
       FileUtils.copy(source, destination)
     end
 
