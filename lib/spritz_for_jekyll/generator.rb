@@ -23,8 +23,22 @@ module Spritz
 
     private
 
+    def sanitize_options(config)
+      return unless config["url"]
+      unless /https?:\/\// =~ config["url"]
+        config["url"] = "http://" + config["url"]
+        puts "Spritz for Jekyll: URL does not contain protocol. We will use HTTP by default."
+      end
+
+      if /\/$/ =~ config["url"]
+        config["url"].gsub!(/\/+$/, "")
+        puts "Spritz for Jekyll: URL ends with a forward slash. We will remove it for you."
+      end
+    end
+
     def get_options(config)
       @options = {}
+      sanitize_options(config)
 
       @options[:client_id]     = config["spritz_client_id"]
       @options[:url]           = config["url"]
@@ -41,12 +55,6 @@ module Spritz
 
       if @options[:url].nil?
         puts "Spritz for Jekyll: URL not set. Will guess on client side."
-      elsif not /^https?:\/\//i =~ @options[:url]
-        puts "Spritz for Jekyll: URL should include protocols like http:// or https://. I will unset it and guess on client side."
-        @options[:url] = nil
-      elsif /\/$/ =~ @options[:url]
-        puts "Spritz for Jekyll: URL should not end with forward slash, /. I will unset it and guess on client side."
-        @options[:url] = nil
       end
 
       if @options[:login_success].nil?
