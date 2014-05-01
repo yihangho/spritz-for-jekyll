@@ -21,7 +21,7 @@ module Spritz
       return if @site.nil?
       get_options(@site)
       warn_and_set_default
-      Spritz::redicle_tag("data-selector" => @options[:selector])
+      Spritz::redicle_tag("data-selector" => @options[:selector], "data-options" => @options[:redicle].to_json)
     end
   end
 end

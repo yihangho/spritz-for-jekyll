@@ -28,7 +28,7 @@ module Spritz
     options.each do |k, v|
       next unless k and v
       attributes += " " unless attributes.empty?
-      attributes += "#{k} = \"#{v}\""
+      attributes += "#{k} = '#{v}'"
     end
     attributes
   end
@@ -61,6 +61,16 @@ module Spritz
     @options[:login_success] = config["spritz"]["login_success_name"]
     @options[:selector]      = config["spritz"]["selector"]
     @options[:automode]      = config["spritz"]["auto_mode"]
+
+    # Redicle options
+    @options[:redicle] = {}
+    return unless config["spritz"]["redicle"]
+    @options[:redicle][:redicleWidth]   = config["spritz"]["redicle"]["width"]
+    @options[:redicle][:redicleHeight]  = config["spritz"]["redicle"]["height"]
+    @options[:redicle][:defaultSpeed]   = config["spritz"]["redicle"]["default_speed"]
+    @options[:redicle][:speedItems]     = config["spritz"]["redicle"]["speed_items"]
+    @options[:redicle][:controlButtons] = config["spritz"]["redicle"]["control_buttons"]
+    @options[:redicle][:controlTitles]  = config["spritz"]["redicle"]["control_titles"]
   end
 
   def warn_and_set_default
@@ -79,6 +89,10 @@ module Spritz
 
     if @options[:automode].nil?
       @options[:automode] = true
+    end
+
+    unless @options[:redicle].nil?
+      @options[:redicle].delete_if { |_,v| v.nil? }
     end
   end
 end
