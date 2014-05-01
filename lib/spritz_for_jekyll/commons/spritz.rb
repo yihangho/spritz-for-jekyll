@@ -34,37 +34,19 @@ module Spritz
   end
 
   def self.sanitize_options(config)
-    return unless config["url"]
+    return unless config["spritz"] && config["spritz"]["url"]
 
-    if config[config["url"]]
-      config["url"] = config[config["url"]]
+    if config[config["spritz"]["url"]]
+      config["spritz"]["url"] = config[config["spritz"]["url"]]
     end
 
-    unless /https?:\/\// =~ config["url"]
-      config["url"] = "http://" + config["url"]
+    unless /https?:\/\// =~ config["spritz"]["url"]
+      config["spritz"]["url"] = "http://" + config["spritz"]["url"]
       puts "Spritz for Jekyll: URL does not contain protocol. We will use HTTP by default."
     end
 
-    if /\/$/ =~ config["url"]
-      config["url"].gsub!(/\/+$/, "")
-      puts "Spritz for Jekyll: URL ends with a forward slash. We will remove it for you."
-    end
-  end
-
-  def self.sanitize_options(config)
-    return unless config["url"]
-
-    if config[config["url"]]
-      config["url"] = config[config["url"]]
-    end
-
-    unless /https?:\/\// =~ config["url"]
-      config["url"] = "http://" + config["url"]
-      puts "Spritz for Jekyll: URL does not contain protocol. We will use HTTP by default."
-    end
-
-    if /\/$/ =~ config["url"]
-      config["url"].gsub!(/\/+$/, "")
+    if /\/$/ =~ config["spritz"]["url"]
+      config["spritz"]["url"].gsub!(/\/+$/, "")
       puts "Spritz for Jekyll: URL ends with a forward slash. We will remove it for you."
     end
   end
@@ -74,11 +56,11 @@ module Spritz
     @options = {}
     Spritz::sanitize_options(config)
 
-    @options[:client_id]     = config["spritz_client_id"]
-    @options[:url]           = config["url"]
-    @options[:login_success] = config["spritz_login_success_name"]
-    @options[:selector]      = config["spritz_selector"]
-    @options[:automode]      = config["spritz_auto_mode"]
+    @options[:client_id]     = config["spritz"]["client_id"]
+    @options[:url]           = config["spritz"]["url"]
+    @options[:login_success] = config["spritz"]["login_success_name"]
+    @options[:selector]      = config["spritz"]["selector"]
+    @options[:automode]      = config["spritz"]["auto_mode"]
   end
 
   def warn_and_set_default
