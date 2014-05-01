@@ -42,12 +42,12 @@ module Spritz
 
     unless /https?:\/\// =~ config["spritz"]["url"]
       config["spritz"]["url"] = "http://" + config["spritz"]["url"]
-      puts "Spritz for Jekyll: URL does not contain protocol. We will use HTTP by default."
+      Jekyll.logger.warn "Spritz for Jekyll:", " URL does not contain protocol. We will use HTTP by default."
     end
 
     if /\/$/ =~ config["spritz"]["url"]
       config["spritz"]["url"].gsub!(/\/+$/, "")
-      puts "Spritz for Jekyll: URL ends with a forward slash. We will remove it for you."
+      Jekyll.logger.warn "Spritz for Jekyll:", "URL ends with a forward slash. We will remove it for you."
     end
   end
 
@@ -75,12 +75,12 @@ module Spritz
 
   def warn_and_set_default
     if @options[:client_id].nil?
-      puts "Spritz for Jekyll: You need a client ID!"
+      Jekyll.logger.warn "Spritz for Jekyll:", "You need a client ID!"
       @options[:client_id] = "12345"
     end
 
     if @options[:url].nil?
-      puts "Spritz for Jekyll: URL not set. Will guess on client side."
+      Jekyll.logger.warn "Spritz for Jekyll:", "URL not set. Will guess on client side."
     end
 
     if @options[:login_success].nil?
