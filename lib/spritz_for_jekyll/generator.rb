@@ -4,7 +4,7 @@ module Spritz
 
     def initialize(*args)
       super
-      login_success_path = args[0]["spritz_login_success_name"] || "login_success.html"
+      login_success_path = args[0]["spritz"]["login_success_name"] || "login_success.html"
       dirname = File.dirname(login_success_path)
 
       FileUtils.mkdir_p(dirname)
