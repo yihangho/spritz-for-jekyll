@@ -1,10 +1,10 @@
-task default: [:build, :move]
+task default: [:features]
 
 task :build do
   sh "gem build spritz_for_jekyll.gemspec"
 end
 
-task move: [:build] do
+task :move do
   versions = []
 
   Dir.open(".").each do |x|
@@ -30,4 +30,9 @@ task :push do
   latest_version = versions.sort.last.join('.')
 
   sh "gem push builds/spritz_for_jekyll-#{latest_version}.gem"
+end
+
+require 'cucumber/rake/task'
+Cucumber::Rake::Task.new(:features) do |t|
+  t.cucumber_opts = "--format progress"
 end
