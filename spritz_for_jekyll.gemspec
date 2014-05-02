@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name                 = 'spritz_for_jekyll'
-  s.version              = '0.6.0'
-  s.date                 = '2014-04-25'
+  s.version              = '1.0.0'
+  s.date                 = '2014-05-02'
   s.summary              = 'Bringing Spritz to Jekyll'
   s.description          = 'A plugin for Jekyll that enables Spritz.'
   s.author               = 'Yihang Ho'
