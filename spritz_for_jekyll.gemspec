@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.license              = 'MIT'
   s.files                = ['lib/spritz_for_jekyll.rb', 'lib/login_success.html', 'lib/spritz_for_jekyll/tags.rb', 'lib/spritz_for_jekyll/generator.rb', 'lib/spritz_for_jekyll/commons/spritz.rb', 'lib/spritz_for_jekyll/commons/tags.rb']
 
-  s.add_development_dependency('jekyll', '~> 1.5.1')
+  s.add_development_dependency('jekyll', '~> 2.0.0')
   s.add_development_dependency('cucumber', '~> 1.3.14')
   s.add_development_dependency('rake', '~> 10.3.1')
 end

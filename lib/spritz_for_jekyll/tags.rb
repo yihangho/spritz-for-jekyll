@@ -8,7 +8,7 @@ module Spritz
       return if @site.nil?
       get_options(@site)
       warn_and_set_default
-      Spritz::script_tag(@options[:client_id], @options[:url], @options[:login_success])
+      Spritz::script_tag(@options[:client_id], @options[:url], @options[:login_success], @options[:redicle].to_json)
     end
   end
 
@@ -21,7 +21,7 @@ module Spritz
       return if @site.nil?
       get_options(@site)
       warn_and_set_default
-      Spritz::redicle_tag("data-selector" => @options[:selector], "data-options" => @options[:redicle].to_json)
+      Spritz::redicle_tag("data-selector" => @options[:selector])
     end
   end
 end

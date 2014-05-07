@@ -118,7 +118,7 @@ Scenario: auto mode is enabled, but Spritz is disabled on a post
 
 Scenario: auto mode is switched off, use spritz_redicle tag
   Given I have the "_posts" directory
-  And I have a post with content "Hello!\n{% spritz_redicle %}"
+  And I have a post with content "{% spritz_redicle %}"
   And I configure Spritz with:
   | key       | value                  |
   | client_id | 12345                  |
@@ -128,6 +128,17 @@ Scenario: auto mode is switched off, use spritz_redicle tag
   Then I should have the "_site/2000/01/01/test.html" file
   And the "_site/2000/01/01/test.html" file should not match 'spritz.min.js'
   And the "_site/2000/01/01/test.html" file should have a div with "data-role" set to "spritzer"
+
+Scenario: auto mode is switched off, use spritz_scripts tag
+  Given I have the "_posts" directory
+  And I have a post with content "{% spritz_scripts %}"
+  And I configure Spritz with:
+  | key       | value                  |
+  | client_id | 12345                  |
+  | url       | http://www.example.com |
+  | auto_mode | false                  |
+  When I run jekyll build
+  Then I should have the "_site/2000/01/01/test.html" file
 
 Scenario: Customize the redicle
   Given I have the "_posts" directory

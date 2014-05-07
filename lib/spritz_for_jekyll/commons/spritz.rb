@@ -1,5 +1,5 @@
 module Spritz
-  def self.script_tag(client_id, base_url, login_success)
+  def self.script_tag(client_id, base_url, login_success, data_options)
     output = <<-HEREDOC
       <script>
         window.jQuery || document.write('<script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js\">\\x3C/script>');
@@ -11,6 +11,11 @@ module Spritz
           SpritzSettings.redirectUri = window.location.protocol + "//" + window.location.host + SpritzSettings.redirectUri;
         }
       </script>
+      <script>
+      $(document).ready(function() {
+        $("div.spritzer").attr("data-options", '#{data_options}');
+      });
+      </script>
       <script id=\"spritzjs\" type=\"text/javascript\" src=\"//sdk.spritzinc.com/js/1.0/js/spritz.min.js\"></script>
     HEREDOC
     output.gsub(/^\s*/, "")
@@ -19,6 +24,7 @@ module Spritz
   def self.redicle_tag(options = {})
     # Set default options
     options["data-role"] = "spritzer"
+    options["class"] = "spritzer"
     attributes = Spritz::get_attribute_string(options)
     "<p><div #{attributes}></div></p>"
   end
