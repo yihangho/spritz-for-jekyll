@@ -19,7 +19,7 @@ module Spritz
       warn_and_set_default
       return unless @options[:automode]
 
-      snippet =  Spritz::script_tag(@options[:client_id], @options[:url], @options[:login_success], @options[:redicle].to_json)
+      snippet =  Spritz::script_tag(@options[:client_id], @options[:url], @options[:login_success], @options[:redicle].to_json, @options[:jquery])
       snippet += Spritz::redicle_tag("data-selector" => @options[:selector])
 
       site.posts.each do |p|

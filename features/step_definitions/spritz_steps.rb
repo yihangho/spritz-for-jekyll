@@ -84,13 +84,13 @@ Then(/^I should have the "(.*?)" file$/) do |file|
 end
 
 Then(/^the "(.*?)" file should match '(.*?)'$/) do |file, regexp|
-  assert Regexp.new(regexp) =~ File.open(file).read
+  assert Regexp.new(regexp, Regexp::MULTILINE) =~ File.open(file).read
 end
 
 Then(/^the "(.*?)" file should have a div with "(.*?)" set to "(.*?)"$/) do |file, key, value|
   content = File.open(file).read
   assert /(?<tag>\<div.*?\>)/ =~ content, "#{file} does not have a div"
-  assert Regexp.new("#{key}\\s*=\\s*('|\")#{value}('|\")") =~ tag, "#{key} is not set to #{value}"
+  assert Regexp.new("#{key}\\s*=\\s*('|\")#{value}('|\")", Regexp::MULTILINE) =~ tag, "#{key} is not set to #{value}"
 end
 
 
@@ -99,11 +99,11 @@ Then(/^I should be warned that "(.*?)"$/) do |warning|
 end
 
 Then(/^the "(.*?)" file should not match '(.*?)'$/) do |file, regexp|
-  assert !(Regexp.new(regexp) =~ File.open(file).read)
+  assert !(Regexp.new(regexp, Regexp::MULTILINE) =~ File.open(file).read)
 end
 
 Then(/^the "(.*?)" file should not have a div with "(.*?)" set to "(.*?)"$/) do |file, key, value|
   if /(?<tag>\<div.*?\>)/ =~ File.open(file).read
-    assert !(Regexp.new("#{key}\\s*=\\s*('|\")#{value}('|\")") =~ tag)
+    assert !(Regexp.new("#{key}\\s*=\\s*('|\")#{value}('|\")", Regexp::MULTILINE) =~ tag)
   end
 end
