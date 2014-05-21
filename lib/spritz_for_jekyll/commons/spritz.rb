@@ -1,8 +1,8 @@
 module Spritz
-  def self.script_tag(client_id, base_url, login_success, data_options)
+  def self.script_tag(client_id, base_url, login_success, data_options, jquery)
     output = <<-HEREDOC
+      #{get_jquery_fallback(jquery)}
       <script>
-        window.jQuery || document.write('<script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js\">\\x3C/script>');
         var SpritzSettings = {
           clientId: \"#{client_id}\",
           redirectUri: \"#{base_url}/#{login_success}\"
@@ -57,6 +57,20 @@ module Spritz
     end
   end
 
+  def self.get_jquery_fallback(jquery)
+    return "" unless jquery
+
+    unless jquery.is_a? Array
+      jquery = [jquery]
+    end
+
+    output = ""
+    jquery.each do |path|
+      output << "<script>window.jQuery || document.write('<script src=\"#{path}\">\\x3C/script>');</script>"
+    end
+    output
+  end
+
   private
   def get_options(config)
     @options = {}
@@ -67,6 +81,7 @@ module Spritz
     @options[:login_success] = config["spritz"]["login_success_name"]
     @options[:selector]      = config["spritz"]["selector"]
     @options[:automode]      = config["spritz"]["auto_mode"]
+    @options[:jquery]        = config["spritz"]["jquery"]
 
     # Redicle options
     @options[:redicle] = {}
@@ -95,6 +110,10 @@ module Spritz
 
     if @options[:automode].nil?
       @options[:automode] = true
+    end
+
+    if @options[:jquery].nil?
+      @options[:jquery] = "//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"
     end
 
     unless @options[:redicle].nil?

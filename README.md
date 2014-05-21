@@ -28,6 +28,7 @@ Configuration at the global level can be done in your Jekyll configuration file,
 3. `auto_mode` (optional, defaults to `true`): This can field can be either `true` or `false`. When it is set to true, necessary scripts and tags will be added to the beginning of each posts. If you wish to customize the location of Spritz (called Redicle), set this field to `false` and refer to the section below, `Liquid Tags`.
 4. `login_success_name` (optional, defaults to `login_success.html`): Spritz require a particular HTML file to work, and we have included it with this gem. By default, it is written to the root of your project using the name `login_success.html`. However, if you have had a file with that name, just set this field to another desired name, say, `spritz_login_success.html`. Also, include this name in the list of included files (see step 3 of Installation).
 5. `spritz_selector` (optional, but highly recommended): A CSS selector that selects the HTML element containing the actual content. By default, Spritz will just load the entire page, including stuff like your site title, copyright statement, etc.
+7. `jquery` (optional): Use this option to customize jQuery fallbacks to be used. Can be `false` (disable fallback, not recommended), a String, or an Array.
 6. `redicle` (optional): Use this option to customize your Redicle. The value of this option should be a hash containing some or all of these keys: `width`, `height`, `default_speed`, `speed_items`, `control_buttons` and `control_titles`. Refer to the example to see the uses of each of these keys.
 
 #### Example
@@ -41,6 +42,7 @@ spritz:
   auto_mode: true
   login_success_name: "spritz_login_success.html"
   selector: "div#content"
+  jquery: ["asset/js/jquery.js", "//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"]
   redicle:
     width: 500
     height: 200

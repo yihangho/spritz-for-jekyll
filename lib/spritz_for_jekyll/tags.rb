@@ -8,7 +8,7 @@ module Spritz
       return if @site.nil?
       get_options(@site)
       warn_and_set_default
-      Spritz::script_tag(@options[:client_id], @options[:url], @options[:login_success], @options[:redicle].to_json)
+      Spritz::script_tag(@options[:client_id], @options[:url], @options[:login_success], @options[:redicle].to_json, @options[:jquery])
     end
   end
 

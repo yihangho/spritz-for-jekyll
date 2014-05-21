@@ -140,6 +140,30 @@ Scenario: auto mode is switched off, use spritz_scripts tag
   When I run jekyll build
   Then I should have the "_site/2000/01/01/test.html" file
 
+Scenario: Disable jquery fallback
+  Given I have the "_posts" directory
+  And I have a post
+  And I configure Spritz with:
+  | key       | value                  |
+  | client_id | 12345                  |
+  | url       | http://www.example.com |
+  | jquery    | false                  |
+  When I run jekyll build
+  Then I should have the "_site/2000/01/01/test.html" file
+  And the "_site/2000/01/01/test.html" file should not match 'jquery.min.js'
+
+Scenario: Customize jquery fallback
+  Given I have the "_posts" directory
+  And I have a post
+  And I configure Spritz with:
+  | key | value |
+  | client_id | 12345 |
+  | url | http://www.example.com |
+  | jquery | ["jquery1.min.js", "jquery2.min.js"] |
+  When I run jekyll build
+  Then I should have the "_site/2000/01/01/test.html" file
+  And the "_site/2000/01/01/test.html" file should match 'jquery1\.min\.js.*jquery2\.min\.js'
+
 Scenario: Customize the redicle
   Given I have the "_posts" directory
   And I have a post
